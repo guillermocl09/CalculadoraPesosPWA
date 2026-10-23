@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#17233a">
+    <meta name="description" content="Calculadora de pesos con historial local y exportación a Excel.">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Pesos">
+
+    <title>Calculadora de Pesos</title>
+
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
+    <link rel="icon" href="./icons/icon-192.png">
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+    <main class="contenedor">
+
+        <header class="header">
+            <div>
+                <h1>Calculadora de Pesos</h1>
+                <p>Calcula automáticamente el ajuste de peso para obtener un total entero.</p>
+            </div>
+
+            <div class="contador">
+                <span>Operaciones</span>
+                <strong id="contadorOperaciones">0</strong>
+            </div>
+        </header>
+
+        <section class="card">
+            <div class="section-title">
+                <div>
+                    <h2>Nueva operación</h2>
+                    <p>El resultado se actualiza automáticamente al escribir.</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="cantidad">Cantidad de productos</label>
+                    <input
+                        type="number"
+                        id="cantidad"
+                        step="any"
+                        min="0"
+                        inputmode="decimal"
+                        autocomplete="off"
+                        placeholder="Ej. 33">
+                </div>
+
+                <div class="form-group">
+                    <label for="peso">Peso por producto (kg)</label>
+                    <input
+                        type="number"
+                        id="peso"
+                        step="any"
+                        min="0"
+                        inputmode="decimal"
+                        autocomplete="off"
+                        placeholder="Ej. 0.440">
+                </div>
+            </div>
+
+            <div id="resultado" class="resultado oculto">
+                <div class="resultado-actual">
+                    <span>Peso total actual</span>
+                    <strong id="pesoActual">-</strong>
+                </div>
+
+                <div class="recomendaciones">
+                    <div class="recomendacion bajar">
+                        <span>Si bajas el peso</span>
+                        <strong id="pesoBajar">-</strong>
+                        <small>Total: <b id="totalBajar">-</b></small>
+                    </div>
+
+                    <div class="recomendacion subir">
+                        <span>Si subes el peso</span>
+                        <strong id="pesoSubir">-</strong>
+                        <small>Total: <b id="totalSubir">-</b></small>
+                    </div>
+                </div>
+
+                <div id="recomendacionPrincipal" class="mejor-opcion"></div>
+
+                <button id="btnGuardar" type="button" class="btn btn-success">
+                    Guardar operación
+                </button>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="section-title">
+                <div>
+                    <h2>Historial</h2>
+                    <p>Se guarda únicamente en este dispositivo.</p>
+                </div>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Cantidad</th>
+                            <th>Peso</th>
+                            <th>Total</th>
+                            <th>Ajuste</th>
+                            <th>Peso recomendado</th>
+                            <th>Total entero</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaHistorial"></tbody>
+                </table>
+            </div>
+
+            <div id="sinOperaciones" class="sin-operaciones">
+                No hay operaciones guardadas.
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="section-title">
+                <div>
+                    <h2>Reporte</h2>
+                    <p>Descarga o comparte el historial actual.</p>
+                </div>
+            </div>
+
+            <div class="botones-reporte">
+                <button id="btnExcel" type="button" class="btn btn-excel">
+                    Descargar Excel
+                </button>
+
+                <button id="btnCompartir" type="button" class="btn btn-secondary">
+                    Compartir Excel
+                </button>
+
+                <button id="btnFinalizar" type="button" class="btn btn-danger">
+                    Finalizar jornada
+                </button>
+            </div>
+        </section>
+
+        <footer>Calculadora de Pesos</footer>
+    </main>
+
+    <div id="modalApp" class="modal-overlay oculto" role="dialog" aria-modal="true">
+        <div class="modal-card">
+            <div id="modalIcono" class="modal-icono">⚖️</div>
+            <h3 id="modalTitulo">Aviso</h3>
+            <p id="modalMensaje"></p>
+            <div id="modalBotones" class="modal-botones"></div>
+        </div>
+    </div>
+
+    <script src="./js/app.js"></script>
+</body>
+</html>
